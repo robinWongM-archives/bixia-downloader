@@ -1,0 +1,22 @@
+{
+  "name": "bixia-downloader",
+  "version": "0.1.0",
+  "description": "The download backend for Bixia",
+  "main": "index.js",
+  "repository": "https://github.com/robinWongM/bixia-downloader.git",
+  "author": "Robin Wong <chaowang0313@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "async-mkdirp": "^1.2.4",
+    "extend2": "^1.0.0",
+    "fast-xml-parser": "^3.12.0",
+    "got": "^9.0.0",
+    "nconf": "^0.10.0",
+    "sequelize": "^4.38.0",
+    "socket.io": "^2.1.1",
+    "sqlite3": "^4.0.2",
+    "winston": "^3.0.0",
+    "ws": "^6.0.0"
+  }
+}
