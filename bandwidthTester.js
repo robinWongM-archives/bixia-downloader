@@ -44,7 +44,8 @@
     const _DOWNLOADSTAT = []
     const _ROOMSTAT = []
     const _DANMUSTAT = []
-    roomList.forEach(hotRoom => {
+
+    function addRoom(hotRoom) {
         const room = new Room(hotRoom.roomid, 'bandwidthTestDir')
 
         room.on('downloadStarted', (filename, startTime) => {
@@ -77,7 +78,13 @@
         _ROOMS.push(room)
         _DANMUSTAT[room._roomID] = 0
         room.start()
-    })
+    }
+
+    for (let i = 0; i < roomList.length; i++) {
+        setTimeout(() => {
+            addRoom(roomList[i])
+        }, i * 1000 + 1000)
+    }
 
     // 2. Cron job - Fetch the latest information of each room
 
