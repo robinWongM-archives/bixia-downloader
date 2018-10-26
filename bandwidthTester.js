@@ -83,8 +83,8 @@
 
     setInterval(() => {
         const table = new Table({
-            head: ['Room ID', 'Room Status', 'Download Status', 'Download Speed', 'Danmaku'],
-            colWidths: [10, 10, 10, 12, 10]
+            head: ['Room ID', 'Room Status', 'Download Status', 'Download Speed', 'PlayURL', 'Danmaku'],
+            colWidths: [10, 10, 10, 12, 20, 10]
         })
 
         _ROOMS.forEach(room => {
@@ -92,6 +92,7 @@
                         _ROOMSTAT[room._roomID],
                         _DOWNLOADSTAT[room._roomID],
                         prettyBytes(room.speed() ? room.speed() : 0) + '/s',
+                        room._downloader ? room._downloader._playURL : "",
                         _DANMUSTAT[room._roomID]])
         })
 
