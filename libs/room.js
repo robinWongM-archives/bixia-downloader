@@ -35,7 +35,7 @@ class Room extends EventEmitter {
     start() {
         // 1. Initialize Downloader if not exists
         if(!this._downloader) {
-            console.log('init downloader')
+            //console.log('init downloader')
             this._downloader = new Downloader(this._roomID, this._path)
             this._downloader.on('started', (filename, startTime) => {
                 // TODO
@@ -63,7 +63,7 @@ class Room extends EventEmitter {
 
         // 2. Start Observing
         this._dmClient = this._dmClient ? this._dmClient : new DMClient(this._roomID)
-        console.log('init dmclient')
+        //console.log('init dmclient')
         this._dmClient.on('connected', () => {}) /* I don't care */
         this._dmClient.on('retrying', () => {})  /* Me, too */
         this._dmClient.on('heartbeat', () => {}) /* Emmmmm */
@@ -119,7 +119,7 @@ class Room extends EventEmitter {
         if(this._downloader)
             return this._downloader.speed()
         else
-            return null
+            return 0
     }
 }
 

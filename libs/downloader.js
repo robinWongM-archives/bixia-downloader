@@ -163,7 +163,7 @@ class Downloader extends EventEmitter {
         if(this.isDownloading)
             return this._lastDownload.speed
         else
-            return null
+            return 0
     }
 }
 
