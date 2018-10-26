@@ -90,7 +90,7 @@ class Downloader extends EventEmitter {
         })
         this.iftamiiStream.once('saved', () => {
             // DEBUG ONLY
-            console.log('The Saved Event was fired!')
+            // console.log('The Saved Event was fired!')
             // Done!
             this.isDownloading = false
             this._stopped = true
@@ -146,7 +146,7 @@ class Downloader extends EventEmitter {
             }
 
             if (progress.percent === 1) {
-                console.log('The DownloadProgress Event was fired!')
+                //console.log('The DownloadProgress Event was fired!')
             }
         })
         .pipe(this.iftamiiStream)
