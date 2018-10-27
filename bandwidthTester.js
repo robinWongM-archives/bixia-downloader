@@ -64,6 +64,7 @@
             switch (type) {
                 case 'LIVE':
                     _ROOMSTAT[room._roomID] = '直播中'
+                    break
                 case 'PREPARING':
                     _ROOMSTAT[room.roomID] = '准备中'
                     break
