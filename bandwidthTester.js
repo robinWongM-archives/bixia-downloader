@@ -46,7 +46,7 @@
     const _DANMUSTAT = []
 
     function addRoom(hotRoom) {
-        const room = new Room(hotRoom.roomid, 'bandwidthTestDir')
+        const room = new Room(hotRoom.roomid, process.env.BANDWIDTH_TEST_DIR || 'bandwidthTestDir')
 
         room.on('downloadStarted', (filename, startTime) => {
             _DOWNLOADSTAT[room._roomID] = '下载开始'
@@ -66,10 +66,10 @@
                     _ROOMSTAT[room._roomID] = '直播中'
                     break
                 case 'PREPARING':
-                    _ROOMSTAT[room.roomID] = '准备中'
+                    _ROOMSTAT[room._roomID] = '准备中'
                     break
                 case 'danmu':
-                    _DANMUSTAT[room.roomID]++
+                    _DANMUSTAT[room._roomID]++
                     break
                 default:
                     break
