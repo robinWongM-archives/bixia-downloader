@@ -6,11 +6,7 @@
     const prettyBytes = require('pretty-bytes')
 
     // 1. Ftech current hottest rooms
-<<<<<<< HEAD
     const { data: roomList } = (await got('https://api.live.bilibili.com/room/v1/Area/getListByAreaID?areaId=0&sort=online&pageSize=50&page=1', {
-=======
-    const { data: roomList } = (await got('https://api.live.bilibili.com/room/v1/Area/getListByAreaID?areaId=0&sort=online&pageSize=20&page=1', {
->>>>>>> 6a7255023db644534eda0d90839a3f1e5e65b3a7
         json: true,
         headers: {
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134',
