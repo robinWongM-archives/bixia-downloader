@@ -90,7 +90,7 @@
     // 2. Cron job - Fetch the latest information of each room
 
     setInterval(() => {
-        const table = new Table({
+        /* const table = new Table({
             head: ['Room ID', 'Room Status', 'Download Status', 'Download Speed', 'PlayURL', 'Danmaku'],
             colWidths: [10, 10, 10, 12, 20, 10]
         })
@@ -102,7 +102,7 @@
                         prettyBytes(room.speed() ? room.speed() : 0) + '/s',
                         room._downloader ? room._downloader._playURL : "",
                         _DANMUSTAT[room._roomID]])
-        }) */
+        })*/
 
         let downloadingCount = 0
         let overallSpeed = 0
