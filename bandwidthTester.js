@@ -6,7 +6,11 @@
     const prettyBytes = require('pretty-bytes')
 
     // 1. Ftech current hottest rooms
+<<<<<<< HEAD
     const { data: roomList } = (await got('https://api.live.bilibili.com/room/v1/Area/getListByAreaID?areaId=0&sort=online&pageSize=50&page=1', {
+=======
+    const { data: roomList } = (await got('https://api.live.bilibili.com/room/v1/Area/getListByAreaID?areaId=0&sort=online&pageSize=20&page=1', {
+>>>>>>> 6a7255023db644534eda0d90839a3f1e5e65b3a7
         json: true,
         headers: {
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134',
@@ -44,8 +48,9 @@
     const _DOWNLOADSTAT = []
     const _ROOMSTAT = []
     const _DANMUSTAT = []
-    roomList.forEach(hotRoom => {
-        const room = new Room(hotRoom.roomid, 'bandwidthTestDir')
+
+    function addRoom(hotRoom) {
+        const room = new Room(hotRoom.roomid, process.env.BANDWIDTH_TEST_DIR || 'bandwidthTestDir')
 
         room.on('downloadStarted', (filename, startTime) => {
             _DOWNLOADSTAT[room._roomID] = '下载开始'
@@ -63,11 +68,12 @@
             switch (type) {
                 case 'LIVE':
                     _ROOMSTAT[room._roomID] = '直播中'
+                    break
                 case 'PREPARING':
-                    _ROOMSTAT[room.roomID] = '准备中'
+                    _ROOMSTAT[room._roomID] = '准备中'
                     break
                 case 'danmu':
-                    _DANMUSTAT[room.roomID]++
+                    _DANMUSTAT[room._roomID]++
                     break
                 default:
                     break
@@ -77,14 +83,20 @@
         _ROOMS.push(room)
         _DANMUSTAT[room._roomID] = 0
         room.start()
-    })
+    }
+
+    for (let i = 0; i < roomList.length; i++) {
+        setTimeout(() => {
+            addRoom(roomList[i])
+        }, i * 1000 + 1000)
+    }
 
     // 2. Cron job - Fetch the latest information of each room
 
     setInterval(() => {
-        /* const table = new Table({
-            head: ['Room ID', 'Room Status', 'Download Status', 'Download Speed', 'Danmaku'],
-            colWidths: [10, 10, 10, 12, 10]
+        const table = new Table({
+            head: ['Room ID', 'Room Status', 'Download Status', 'Download Speed', 'PlayURL', 'Danmaku'],
+            colWidths: [10, 10, 10, 12, 20, 10]
         })
 
         _ROOMS.forEach(room => {
@@ -92,6 +104,7 @@
                         _ROOMSTAT[room._roomID],
                         _DOWNLOADSTAT[room._roomID],
                         prettyBytes(room.speed() ? room.speed() : 0) + '/s',
+                        room._downloader ? room._downloader._playURL : "",
                         _DANMUSTAT[room._roomID]])
         }) */
 
