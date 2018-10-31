@@ -6,7 +6,7 @@
     const prettyBytes = require('pretty-bytes')
 
     // 1. Ftech current hottest rooms
-    const { data: roomList } = (await got('https://api.live.bilibili.com/room/v1/Area/getListByAreaID?areaId=0&sort=online&pageSize=50&page=1', {
+    const { data: roomList } = (await got('https://api.live.bilibili.com/room/v1/Area/getListByAreaID?areaId=0&sort=online&pageSize=20&page=1', {
         json: true,
         headers: {
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134',
@@ -90,9 +90,9 @@
     // 2. Cron job - Fetch the latest information of each room
 
     setInterval(() => {
-        /* const table = new Table({
+        const table = new Table({
             head: ['Room ID', 'Room Status', 'Download Status', 'Download Speed', 'PlayURL', 'Danmaku'],
-            colWidths: [10, 10, 10, 12, 20, 10]
+            colWidths: [10, 10, 10, 12, 30, 10]
         })
 
         _ROOMS.forEach(room => {
@@ -102,7 +102,7 @@
                         prettyBytes(room.speed() ? room.speed() : 0) + '/s',
                         room._downloader ? room._downloader._playURL : "",
                         _DANMUSTAT[room._roomID]])
-        })*/
+        })
 
         let downloadingCount = 0
         let overallSpeed = 0
@@ -115,9 +115,7 @@
                 overallSpeed += room.speed()
         })
 
-        logUpdate(`
-        Loaded ${_ROOMS.length} room(s),
-        Downloading ${downloadingCount} room(s),
-        Overall download speed: ${prettyBytes(overallSpeed)}/s`)
+        logUpdate(`${table.toString()}
+    Overall download speed: ${prettyBytes(overallSpeed)}/s`)
     }, 500)
 })()
