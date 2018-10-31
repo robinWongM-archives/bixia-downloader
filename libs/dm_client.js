@@ -36,6 +36,7 @@ class DMClient extends EventEmitter {
             'https://live.bilibili.com/api/player?id=cid:' + this._roomID
         )).body
         const { state, dm_server, dm_wss_port } = xmlParser.parse(dmInfoRes)
+        this._dmServer = dm_server
         // TODO Live status!
         this.emit('activity', state, true)
         this._ws = new ws('wss://' + dm_server + ':' + dm_wss_port + '/sub')
