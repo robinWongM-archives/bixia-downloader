@@ -61,7 +61,7 @@ class Downloader extends EventEmitter {
 
         // Select a random stream url, https://stackoverflow.com/a/23976260
         const playURL = durl[~~(durl.length * Math.random())].url
-        this.playURL = playURL
+        this._playURL = playURL
 
         // Create Custom Stream
         // it will ensure we only receive FLV Stream
